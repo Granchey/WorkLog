@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+<changeSet author="Granit" id="1">
+    <createTable tableName="EMPLOYEE">
+        <column autoIncrement="true" name="EMPLOYEE_ID" type="INT">
+            <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_7"/>
+        </column>
+        <column name="FIRST_NAME" type="VARCHAR(30)"/>
+        <column name="LAST_NAME" type="VARCHAR(30)"/>
+        <column name="EMAIL" type="VARCHAR(50)"/>
+    </createTable>
+</changeSet>
+<changeSet author="Granit" id="2">
+    <createTable tableName="EMPLOYEE_WORK_LOG">
+        <column autoIncrement="true" name="EMPLOYEE_WORK_LOG_ID" type="INT">
+            <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_2"/>
+        </column>
+        <column name="EMPLOYEE_ID" type="INT"/>
+        <column defaultValueComputed="CURRENT_TIMESTAMP" name="CREATED_ON" type="TIMESTAMP"/>
+        <column defaultValueComputed="CURRENT_TIMESTAMP" name="UPDATED_ON" type="TIMESTAMP"/>
+        <column name="DESCRIPTION" type="VARCHAR(500)"/>
+        <column name="MINUTES_WORKED" type="INT"/>
+    </createTable>
+</changeSet>
+<changeSet author="Granit" id="3">
+    <createTable tableName="USERS">
+        <column autoIncrement="true" name="ID" type="INT">
+            <constraints nullable="false" primaryKey="true" primaryKeyName="CONSTRAINT_4"/>
+        </column>
+        <column name="FIRST_NAME" type="VARCHAR(30)"/>
+        <column name="LAST_NAME" type="VARCHAR(30)"/>
+        <column name="EMAIL" type="VARCHAR(30)"/>
+        <column name="PASSWORD" type="VARCHAR(30)"/>
+        <column name="ROLE" type="VARCHAR(30)"/>
+    </createTable>
+</changeSet>
+<changeSet author="Granit" id="4">
+    <createIndex indexName="CONSTRAINT_INDEX_2" tableName="EMPLOYEE_WORK_LOG">
+        <column name="EMPLOYEE_ID"/>
+    </createIndex>
+</changeSet>
+<changeSet author="Granit" id="5">
+    <addForeignKeyConstraint baseColumnNames="EMPLOYEE_ID" baseTableName="EMPLOYEE_WORK_LOG" constraintName="CONSTRAINT_2F" deferrable="false" initiallyDeferred="false" onDelete="SET NULL" onUpdate="RESTRICT" referencedColumnNames="EMPLOYEE_ID" referencedTableName="EMPLOYEE" />
+</changeSet>
+</databaseChangeLog>
